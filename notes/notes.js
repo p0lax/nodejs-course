@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 module.exports = {
-	
+
 	addNote(title, body) {
 		const note = { title, body };
 		fs.writeFileSync('notes.json', JSON.stringify(note));
