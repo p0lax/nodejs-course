@@ -3,9 +3,18 @@ const fs = require('fs');
 module.exports = {
 
 	addNote(title, body) {
-		const note = { title, body };
-		fs.writeFileSync('notes.json', JSON.stringify(note));
-		console.log('Adding note: ', title, body);
+		let notes = {};
+		try {
+			const notesString = fs.readFileSync('notes.json');
+			notes = JSON.parse(notesString);
+		} catch (ex) {
+			
+		}
+
+		if (!notes[title]) {
+			notes[title] = body;
+			fs.writeFileSync('notes.json', JSON.stringify(notes));	
+		}
 	},
 
 	getList() {
