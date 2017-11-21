@@ -2,25 +2,37 @@ const fs = require('fs');
 
 module.exports = {
 
-	addNote(title, body) {
-		let notes = {};
+  fetchNotes() {
 		try {
 			const notesString = fs.readFileSync('notes.json');
-			notes = JSON.parse(notesString);
+			return JSON.parse(notesString);
 		} catch (ex) {
-			
-		}
+			return [];
+    }
+  },
 
-		if (!notes[title]) {
-			notes[title] = body;
-			fs.writeFileSync('notes.json', JSON.stringify(notes));	
-		}
+  saveNotes(notes) {
+    fs.writeFileSync('notes.json', JSON.stringify(notes));
+  },
+
+	addNote(title, body) {
+		const notes = this.fetchNotes();
+
+		if (notes[title]) {
+      console.error('The note with such title is already exist!');
+      return;
+    }
+    notes[title] = body;
+    this.saveNotes(notes);	
+    console.error(`The note with title "${title}" was added to the notes list`);
 	},
 
 	getList() {
-		const note = fs.readFileSync('notes.json');
-		console.log('Getting list of notes', JSON.parse(note));
-	},
+    const notes = this.fetchNotes();
+    notes.map((note) => {
+      console.log(note.title, note.body);
+    });
+  },
 
 	readNote(title) {
 		console.log('Reading note: ', title);
