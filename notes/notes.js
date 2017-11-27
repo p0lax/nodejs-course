@@ -48,7 +48,14 @@ module.exports = {
 	},
 
 	removeNote(title) {
-		console.log('Removing note: ', title);
+    const notes = this.fetchNotes();
+    if (!notes[title]) {
+      console.error(`The note with such title isn't exist!`);
+      return;
+    }
+    delete notes[title];
+    this.saveNotes(notes);
+		console.log(`Note ${title} was removed!`);
 	}
 
 };
