@@ -1,4 +1,5 @@
 const fs = require('fs');
+const _ = require('lodash');
 
 module.exports = {
 
@@ -24,18 +25,26 @@ module.exports = {
     }
     notes[title] = body;
     this.saveNotes(notes);	
-    console.error(`The note with title "${title}" was added to the notes list`);
+    console.error(`The note with title "${title}" and body "${body}" was added to the notes list`);
 	},
 
 	getList() {
     const notes = this.fetchNotes();
-    notes.map((note) => {
-      console.log(note.title, note.body);
+    _.map(notes, (body, title) => {
+      console.log(title, body);
     });
+    return notes;
   },
 
 	readNote(title) {
-		console.log('Reading note: ', title);
+    const notes = this.fetchNotes();
+    const body = notes[title];
+    if (!body) {
+      console.error(`The note with such title isn't exist!`);
+      return;
+    }
+    console.log(`Reading note with title: "${title}" and body: "${body}"`);
+    return { title, body };
 	},
 
 	removeNote(title) {
