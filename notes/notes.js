@@ -40,7 +40,7 @@ module.exports = {
     const notes = this.fetchNotes();
     const body = notes[title];
     if (!body) {
-      console.error(`The note with such title isn't exist!`);
+      console.error(`The note with such title doesn't exist!`);
       return;
     }
     console.log(`Reading note with title: "${title}" and body: "${body}"`);
@@ -50,7 +50,7 @@ module.exports = {
 	removeNote(title) {
     const notes = this.fetchNotes();
     if (!notes[title]) {
-      console.error(`The note with such title isn't exist!`);
+      console.error(`The note with such title doesn't exist!`);
       return;
     }
     delete notes[title];
