@@ -30,9 +30,7 @@ module.exports = {
 
 	getList() {
     const notes = this.fetchNotes();
-    _.map(notes, (body, title) => {
-      console.log(title, body);
-    });
+    _.map(notes, (body, title) => console.log(title, body));
     return notes;
   },
 
