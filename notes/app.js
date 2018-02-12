@@ -1,5 +1,29 @@
 const yargs = require('yargs');
-const argv = yargs.argv;
+const TITLE_PARAM_DESCRIPTION = { 
+	describe: 'Title of note',
+	demand: true,
+	alias: 't'
+};
+
+const BODY_PARAM_DESCRIPTION = { 
+	describe: 'Title of note',
+	demand: true,
+	alias: 't'
+};
+const argv = yargs
+	.command('add', 'Add a new note', {
+		title: TITLE_PARAM_DESCRIPTION,
+		body: BODY_PARAM_DESCRIPTION
+	})
+	.command('list', 'List all notes')
+	.command('read', 'Read a note', {
+		title: TITLE_PARAM_DESCRIPTION
+	})
+	.command('remove', 'Remove a note', {
+		title: TITLE_PARAM_DESCRIPTION
+	})
+	.help()
+	.argv;
 
 const notes = require('./notes');
 const COMMANDS = {
